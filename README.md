@@ -44,4 +44,7 @@ After trying what I could, I couldn't find a way to make the button recognise th
 
 As a retrospective I realised that my naming conventions where poor, instead of using the "On" prefix, I just changed the names to be more hyperspecifc, which sometimes is clear, and other times is actually less clear
 For example sometimes I wrote "XKey" instead of "OnX" which could be referring to the key itself, when in actuality its a function, so I am going to change all furthernames to use the On prefix. Below is what I currently have
+
+
+
 <img width="580" height="375" alt="image" src="https://github.com/user-attachments/assets/8b1ce880-37ea-4788-888e-cb109f5d7228" />
