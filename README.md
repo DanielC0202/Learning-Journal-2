@@ -9,9 +9,13 @@ One of the big issues I had was always forgetting the "using UnityEngine.InputSy
 
 Another issue I faced consistently, was whenever I learned in class or at home, I would be able to pull the inputs off, then would not be able to remember the syntax, so my way to fix this was doing the research on my laptop, and now I bring my laptop, which keeps me consistently refreshed on the syntax.
 
-I learned the Input system through a per, Johnny Burkett, he assisted in making a small mock up that could help for this project, I am currently working on moving that mock up into unity
+I learned the Input system through a peer, Johnny Burkett, he assisted in making a small mock up that could help for this project, I am currently working on moving that mock up into unity
 
-An area I would have struggled majorly is the syntax inside the brackets of the OnMove() function, the "InputAction.CallbackContext ctx" was not something I would've remembered, and I understand it is to reiterate to the computer to check the input action for this line of code when we se the ctx reference, it still isn't something I am confident saying needs to/not be there.
+An area I would have struggled majorly is the syntax inside the brackets of the input functions
+
+    void OnMove(InputAction.CallbackContext ctx) 
+
+This was not something I would've remembered, and I understand it is to reiterate to the computer to check the input action for this line of code when we se the ctx reference, it still isn't something I am confident saying needs to/not be there.
 
 Also in incorporating the script to my computer, I ran into small issues like my projects InputActions and Action Maps where named differently, so copying the script exactly wouldn't work, and it's why when coding, you are much better off retyping line by line, as apposed to copy Pasting, because copy pasting will have you understanding much less! This way I just looked to see when issues arise and tried to figure out what the differences where and nail them down.
 The specific issues where that the names being slightly different but all named similarly, I was often unsure of what certain names referred to, for example, in my example code I have and Action Map called "Player" but on this unity scene it was called "Movement" etc etc.
@@ -35,3 +39,9 @@ see alot of games have certain actions be activatable through multiple different
 Currently Running into an issue where I would like to be able to use the UI buttons with more than just the mouse, with the arrow keys too, pressing any would select one, but I cannot seem to find out a way to do this
 
 closest I can manage is selecting a button by default, I could theoretically have it so you could press a key and then go to the designated button, but that crumbles when you have any more than two buttons on screen, I have seen an idea of assigning a value, and ID to each button, and each time you press a navigation button it either adds 1 or removes one from your id, meaning you'll go to either the button above you always, or below you always, not entirely sure how to assign these values though, I am going to give it an attempt 
+
+After trying what I could, I couldn't find a way to make the button recognise that its number is X, and so I could never get the game to select the correct button when I told it what number to go to. It wasn't a failure in syntax, instead in logic, which means I need to figure out a way to get it to assign said number.
+
+As a retrospective I realised that my naming conventions where poor, instead of using the "On" prefix, I just changed the names to be more hyperspecifc, which sometimes is clear, and other times is actually less clear
+For example sometimes I wrote "XKey" instead of "OnX" which could be referring to the key itself, when in actuality its a function, so I am going to change all furthernames to use the On prefix. Below is what I currently have
+<img width="580" height="375" alt="image" src="https://github.com/user-attachments/assets/8b1ce880-37ea-4788-888e-cb109f5d7228" />
