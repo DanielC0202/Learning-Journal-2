@@ -24,8 +24,8 @@ I did not figure out WHY the character was continuously rotating, but I figured 
 
 Now unfortunately I did have a solid idea on how to work on this, but I had an issue with how to execute it, I tried making it so that when pressing a key, it set a rotation value, then in fixed update, running the following code:
 
-Quaternion deltaRotation = Quaternion.Euler(eulerAngleVelocity * Time.deltaTime);
-rb.MoveRotation(rb.rotation * deltaRotation);
+    Quaternion deltaRotation = Quaternion.Euler(eulerAngleVelocity * Time.deltaTime);
+    rb.MoveRotation(rb.rotation * deltaRotation);
 
 The issue was when I pressed the key it was assigning a value, and then never unanssigning it, I tried moving code around to change this but it took me a while to realise, and I only did because Paul came over to help, that I am reading a float in the function that is called when you press the key, so I can move this to the line that assigns the number, and times that number by the float, as it is always 1 or 0, if its times by 0, it stays at 0, and if it is 1, it actually assigns it, genius I say.
 
