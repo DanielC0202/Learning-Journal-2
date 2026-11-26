@@ -34,7 +34,7 @@ Now unfortunately I did have a solid idea on how to work on this, but I had an i
 The issue was when I pressed the key it was assigning a value, and then never unanssigning it, I tried moving code around to change this but it took me a while to realise, and I only did because Paul came over to help, that I am reading a float in the function that is called when you press the key, so I can move this to the line that assigns the number, and times that number by the float, as it is always 1 or 0, if its times by 0, it stays at 0, and if it is 1, it actually assigns it, genius I say.
 
 Another thing I worked on was Swapping Action Maps, as the player pressing pause and disabling the player action map, enabling the UI one, and the real fun part was swapping back
-see alot of games have certain actions be activatable through multiple different methods, such as closing a menu with an x on the screen, or pressing the standard return button (B/X/A) so I tried making the resume game button also trigger the input function, but this didn't work as those functions won't show up for the button, so instead if you press the key that would resume, the script just runs a separate function, and that function can be accessed either through the key OR the UI Button. This worked flawlessly and I was very happy.
+see a lot of games have certain actions be activatable through multiple different methods, such as closing a menu with an x on the screen, or pressing the standard return button (B/X/A) so I tried making the resume game button also trigger the input function, but this didn't work as those functions won't show up for the button, so instead if you press the key that would resume, the script just runs a separate function, and that function can be accessed either through the key OR the UI Button. This worked flawlessly and I was very happy.
 
 Currently Running into an issue where I would like to be able to use the UI buttons with more than just the mouse, with the arrow keys too, pressing any would select one, but I cannot seem to find out a way to do this
 
@@ -42,9 +42,60 @@ closest I can manage is selecting a button by default, I could theoretically hav
 
 After trying what I could, I couldn't find a way to make the button recognise that its number is X, and so I could never get the game to select the correct button when I told it what number to go to. It wasn't a failure in syntax, instead in logic, which means I need to figure out a way to get it to assign said number.
 
-As a retrospective I realised that my naming conventions where poor, instead of using the "On" prefix, I just changed the names to be more hyperspecifc, which sometimes is clear, and other times is actually less clear
-For example sometimes I wrote "XKey" instead of "OnX" which could be referring to the key itself, when in actuality its a function, so I am going to change all furthernames to use the On prefix. Below is what I currently have
+As a retrospective I realised that my naming conventions where poor, instead of using the "On" prefix, I just changed the names to be more hyper specific, which sometimes is clear, and other times is actually less clear
+For example sometimes I wrote "XKey" instead of "OnX" which could be referring to the key itself, when in actuality its a function, so I am going to change all further names to use the On prefix. Below is what I currently have
 
 
 
 <img width="580" height="375" alt="image" src="https://github.com/user-attachments/assets/8b1ce880-37ea-4788-888e-cb109f5d7228" />
+
+
+## 26/11/26 ##
+
+Started working on a weapon swap component, as the component only has the weapon swap, I decided to keep it all in one script (Even though arguably I probably shouldn't have). Started by using what I learned from the previous component, reinforcing the learning, as it's the New Unity Input System, and I need to be able to debug two buttons. 
+
+I had these lines originally.
+
+        void OnEnable()
+        {
+            playerInputs.Enable();
+            playerInputs.Player.Shoot.performed += Shooting();
+            playerInputs.Player.Shoot.canceled += Shooting();
+            playerInputs.Player.Swap.performed += OnSwap();
+            playerInputs.Player.Swap.canceled += OnSwap();
+            playerInputs.Player.Reload.performed += OnReload();
+            playerInputs.Player.Reload.canceled += OnReload();
+        }
+
+It took me and a couple friends to notice what was wrong lol, but once I caught that I do not need to open and close brackets after calling the function (Which by the way is confusing because whenever you call a function manually, you always do, but I digress), it was smooth sailing from there.
+
+As you can see, I added shooting, just the smallest functionality, a counter that goes down every time you click, this is here so when the ammo runs out, the game forces the weapon swap if you try to fire again. Currently if you run out of ammo, it instead forces a reload as seen below:
+
+        void Shooting(InputAction.CallbackContext ctx)
+        {
+            if (Ammo >= 0)
+            {
+                Ammo--;
+            }
+            if (Ammo <= 0)
+            {
+                StartCoroutine(Reload());
+            }
+        }
+        
+        void OnReload(InputAction.CallbackContext ctx)
+        {
+            if (Ammo <= 0)
+            {
+                StartCoroutine(Reload());
+            }
+        }
+        
+        private IEnumerator Reload()
+        {
+            yield return new WaitForSeconds(2f);
+            Ammo = maxAmmo;
+        }
+This is letting me reload, both on command and when I run out of ammo in the current magazine, plans are to add a limited number of magazines, and once those are out, the weapon swap is forced.
+
+The current focus is on moving the weapons in and out of location, making a baseline switch where the weapons teleport in and out, testing if the script doesn't run into any issues swapping ammo types etc etc.
